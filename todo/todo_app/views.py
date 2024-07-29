@@ -59,18 +59,30 @@ class AddTodo(View):
     form=TodoForm()
     return render(request,'add_todo.html',{'form':form})
   def post(self,request):
-    form=TodoForm(request.POST)
-    if form.is_valid():
-      title=form.cleaned_data.get('title')
-      content=form.cleaned_data.get('content')
-      Todos.objects.create(title=title,content=content,user=request.user)
-      messages.success(request,'Todo Added success')
-      return redirect('list_todo')
+    if request.user.is_authenticated:
+      form=TodoForm(request.POST)
+      if form.is_valid():
+        title=form.cleaned_data.get('title')
+        content=form.cleaned_data.get('content')
+        Todos.objects.create(title=title,content=content,user=request.user)
+        messages.success(request,'Todo Added success')
+        return redirect('list_todo')
+      else:
+        messages.error(request,'invalid data')
+        return redirect("add_todo")
+    else:
+      messages.warning(request,"you Must login Firs!")
+      return redirect("user_login")
     
 class ListTodo(View):
   def get(self,request):
-    todo=Todos.objects.filter(user=request.user,status=False)
-    return render(request,'list_todo.html',{'todo':todo})
+    user=request.user
+    if user.is_authenticated:
+      todo=Todos.objects.filter(user=request.user,status=False)
+      return render(request,'list_todo.html',{'todo':todo})
+    else:
+      messages.warning(request,"You must login First")
+      return redirect('user_login')
 
 class TodoDetailView(View):
   def get(self,request,*args,**kwargs):
