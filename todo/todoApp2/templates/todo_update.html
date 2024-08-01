@@ -1,0 +1,13 @@
+{% extends 'index.html' %}
+
+{% block content %}
+<form action="" method="post" class="m-auto w-75 p-4">
+  <fieldset>
+    <legend>Update Todo</legend>
+    {% csrf_token %}
+    {{form}}
+  </fieldset>
+  <button type="submit" class="btn btn-outline-dark">Update</button>
+</form>
+
+{% endblock %}
