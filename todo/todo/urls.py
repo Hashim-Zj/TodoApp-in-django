@@ -19,8 +19,9 @@ from django.urls import path,include
 from todo_app import views
 
 urlpatterns = [
+    path('',include('todoApp2.urls')),
     path('admin/', admin.site.urls),
-    path('', views.HomeView.as_view(),name='home_view'),
+    path('h', views.HomeView.as_view(),name='home_view'),
     path('signup', views.UserRegister.as_view(),name='user_reg'),
     path('login', views.UserLogin.as_view(),name='user_login'),
     path('logout', views.UserLogOut.as_view(),name='user_logout'),
@@ -29,6 +30,5 @@ urlpatterns = [
     path('detail/<int:id>', views.TodoDetailView.as_view(),name='todo_detail'),
     path('update/<int:id>', views.UpdateTodoView.as_view(),name='todo_update'),
     path('delete/<int:id>', views.DeleteTodoView.as_view(),name='todo_delete'),
-    path('T2/',include('todoApp2.urls'))
 
 ]

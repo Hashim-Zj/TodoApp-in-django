@@ -1,4 +1,4 @@
-{% extends 'index.html' %}
+{% extends 'App2/index.html' %}
 
 {% block content %}
 
@@ -10,8 +10,8 @@
       <p><li class="list-group-item">Date : {{todo.date}}</li></p>
     </ul>
     <div class="card-footer">
-      <a href="{% url 'todo_update' todo.id %}" class="btn btn-outline-secondary">Update</a>
-      <a href="{% url 'todo_delete' todo.id %}" class="btn btn-outline-secondary">Delete</a>
+      <a href="{% url 'updateView' todo.id %}" class="btn btn-outline-secondary">Update</a>
+      <a href="{% url 'deleteView' todo.id %}" class="btn btn-outline-secondary">Delete</a>
     </div>
   </div>
 </section>
